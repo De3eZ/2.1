@@ -12,7 +12,6 @@ void main()
 
 	Project1::MyForm form;
 	Application::Run(% form);
-
 }
 
 
@@ -24,7 +23,6 @@ System::Void Project1::MyForm::AddButton_Click(System::Object^ sender, System::E
 	}
 	else
 	{
-		
 		string value;
 		using namespace Runtime::InteropServices;
 		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(textBox3->Text)).ToPointer();
@@ -32,6 +30,7 @@ System::Void Project1::MyForm::AddButton_Click(System::Object^ sender, System::E
 		Marshal::FreeHGlobal(IntPtr((void*)chars));
 
 		int size = Convert::ToInt16(textBox1->Text);
+
 		if (size < 256)
 		{
 			for (int i = 0; i < 10; i++)
@@ -48,7 +47,10 @@ System::Void Project1::MyForm::AddButton_Click(System::Object^ sender, System::E
 			double n = size;
 				n/= 256;
 			size =ceil(n);
-
+			if (size > 10)
+			{
+				MessageBox::Show("Недостаточно места");
+			}
 			for (int i = 0; i < 10 - size; i++)
 			{
 				bool free = true;
@@ -57,7 +59,7 @@ System::Void Project1::MyForm::AddButton_Click(System::Object^ sender, System::E
 					if (arr[i + j] != "")
 					{
 						free = false;
-					}
+					}	
 				}
 				if (free)
 				{
@@ -66,6 +68,10 @@ System::Void Project1::MyForm::AddButton_Click(System::Object^ sender, System::E
 						arr[i + j] = value;
 					}
 					break;
+				}
+				else
+				{
+					MessageBox::Show("Недостаточно места");
 				}
 			}
 		}
@@ -84,20 +90,26 @@ System::Void Project1::MyForm::DeleteButton_Click(System::Object^ sender, System
 	}
 	else
 	{
-		string value;
+		string value;	
 		using namespace Runtime::InteropServices;
 		const char* chars = (const char*)(Marshal::StringToHGlobalAnsi(textBox2->Text)).ToPointer();
 		value = chars;
 		Marshal::FreeHGlobal(IntPtr((void*)chars));
-
+		bool del = false;
 		for (int i = 0; i < 10; i++)
-		{
+		{	
 			if (arr[i] == value)
 			{
 				arr[i] = "";
+				del = true;
 			}
 		}
 		textBox2->Text = "";
+
+		if (del)
+		{
+			MessageBox::Show("Файл не найден");
+		}
 	}
 }
 
