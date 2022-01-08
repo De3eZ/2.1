@@ -49,7 +49,7 @@ System::Void Project1::MyForm::AddButton_Click(System::Object^ sender, System::E
 			size =ceil(n);
 			if (size > 10)
 			{
-				MessageBox::Show("Недостаточно места");
+				
 			}
 			for (int i = 0; i < 10 - size; i++)
 			{
@@ -71,7 +71,7 @@ System::Void Project1::MyForm::AddButton_Click(System::Object^ sender, System::E
 				}
 				else
 				{
-					MessageBox::Show("Недостаточно места");
+					
 				}
 			}
 		}
